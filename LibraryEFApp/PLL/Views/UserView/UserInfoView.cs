@@ -1,4 +1,4 @@
-﻿using LibraryEFApp.BLL.Services;
+﻿using LibraryEFApp.DAL.Repositories;
 using LibraryEFApp.PLL.Helpers;
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ namespace LibraryEFApp.PLL.Views.UserView
 {
     public class UserInfoView
     {
-        UserService userService;
-        public UserInfoView(UserService userService)
+        private IUserRepository userRepository;
+        public UserInfoView(IUserRepository userRepository)
         {
-            this.userService = userService;
+            this.userRepository = userRepository;
         }
         public void Show()
         {
@@ -21,7 +21,7 @@ namespace LibraryEFApp.PLL.Views.UserView
 
             int userToFind = int.Parse(Console.ReadLine());
 
-            var user = userService.FindUserById(userToFind);
+            var user = userRepository.FindById(userToFind);
 
             try
             {
@@ -38,8 +38,7 @@ namespace LibraryEFApp.PLL.Views.UserView
             {
                 AlertMessage.Show("Произошла ошибка поиска.");
             }
-
-            
+         
 
             Console.WriteLine("Информация о пользователе");
             Console.WriteLine("Идентификатор: {0}", user.Id);

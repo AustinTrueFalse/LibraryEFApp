@@ -1,5 +1,6 @@
 ﻿using LibraryEFApp.DAL.Entities;
 using LibraryEFApp.BLL.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,12 @@ namespace LibraryEFApp.DAL.Repositories
     
     public class UserRepository : AppContextEF, IUserRepository
     {
+        IBookRepository bookRepository;
+        public UserRepository(IBookRepository bookRepository)
+        {
+            this.bookRepository = bookRepository;
+        }
+
         public void AddUser(UserEntity userEntity)
         {
             using (var db = new AppContextEF())
@@ -80,6 +87,32 @@ namespace LibraryEFApp.DAL.Repositories
             }
 
         }
+
+        public void GetBookFromLibrary(int userId, int bookId)
+        {
+            using (var db = new AppContextEF())
+            {
+
+                BookEntity book = db.Books.FirstOrDefault(b => b.Id == bookId);
+                if (book == null)
+                    throw new BookNotFoundException();
+
+
+                UserEntity user = db.Users.FirstOrDefault(u => u.Id == userId);
+
+                if (user == null)
+                    throw new UserNotFoundException();
+
+
+                user.Books.Add(book);
+                db.SaveChanges();
+
+
+            }
+
+        }
+
+        
     }
 
     public interface IUserRepository
@@ -89,6 +122,8 @@ namespace LibraryEFApp.DAL.Repositories
         UserEntity FindById(int id);
         void Delete(string name, string email);
         void UpdateById(int id, string value);
+
+        public void GetBookFromLibrary(int userId, int bookId);
 
     }
 }

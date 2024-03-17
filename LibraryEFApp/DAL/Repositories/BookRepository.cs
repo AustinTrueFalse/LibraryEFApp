@@ -10,14 +10,11 @@ namespace LibraryEFApp.DAL.Repositories
 {
     public class BookRepository : AppContextEF, IBookRepository
     {
-        public void AddBook(BookEntity bookEntity, int userId)
+        public void AddBook(BookEntity bookEntity)
         {
             using (var db = new AppContextEF())
             {
-
-                var user = db.Users.FirstOrDefault(u => u.Id == userId);
-
-                bookEntity.UserEntity = user;
+                
                 // Добавление книги
                 db.Books.Add(bookEntity);
 
@@ -86,7 +83,7 @@ namespace LibraryEFApp.DAL.Repositories
 
     public interface IBookRepository
     {
-        void AddBook(BookEntity bookEntity, int userId);
+        void AddBook(BookEntity bookEntity);
         public List<BookEntity> FindAll();
         BookEntity FindById(int id);
         void Delete(string name, int yearOfRelease);

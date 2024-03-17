@@ -1,5 +1,4 @@
-﻿
-using LibraryEFApp.BLL.Services;
+﻿using LibraryEFApp.DAL.Repositories;
 using LibraryEFApp.PLL.Helpers;
 using System;
 using System.Collections.Generic;
@@ -11,10 +10,10 @@ namespace LibraryEFApp.PLL.Views.UserView
 {
     public class UserUpdateView
     {
-        UserService userService;
-        public UserUpdateView(UserService userService)
+        private IUserRepository userRepository;
+        public UserUpdateView(IUserRepository userRepository)
         {
-            this.userService = userService;
+            this.userRepository = userRepository;
         }
 
         public void Show()
@@ -28,7 +27,7 @@ namespace LibraryEFApp.PLL.Views.UserView
 
             try
             {
-                userService.UpdateById(id, name);
+                userRepository.UpdateById(id, name);
 
                 SuccessMessage.Show("Данные обновлены.");
             }

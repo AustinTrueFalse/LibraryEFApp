@@ -1,5 +1,4 @@
-﻿using LibraryEFApp.BLL.Services;
-using LibraryEFApp.PLL.Views.UserView;
+﻿using LibraryEFApp.PLL.Views.UserView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,8 @@ namespace LibraryEFApp.PLL.Views
         enum Tables
         {
             users,
-            books                  
+            books,
+            authors
         }
 
         public void Show()
@@ -32,6 +32,9 @@ namespace LibraryEFApp.PLL.Views
                     break;
                 case nameof(Tables.books):
                     Program.bookMainView.Show();
+                    break;
+                case nameof(Tables.authors):
+                    Program.authorMainView.Show();
                     break;
                 default:
                     throw new EnteredTableException();

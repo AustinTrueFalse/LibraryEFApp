@@ -1,20 +1,20 @@
 ﻿using LibraryEFApp.DAL.Entities;
-using LibraryEFApp.BLL.Services;
 using LibraryEFApp.PLL.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LibraryEFApp.DAL.Repositories;
 
 namespace LibraryEFApp.PLL.Views.UserView
 {
     public class AddUserView
     {
-        UserService userService;
-        public AddUserView(UserService userService)
+        private IUserRepository userRepository;
+        public AddUserView(IUserRepository userRepository)
         {
-            this.userService = userService;
+            this.userRepository = userRepository;
         }
 
         public void Show()
@@ -29,7 +29,7 @@ namespace LibraryEFApp.PLL.Views.UserView
 
             try
             {
-                this.userService.Register(user);
+                this.userRepository.AddUser(user);
 
                 SuccessMessage.Show("Данные записаны.");
             }

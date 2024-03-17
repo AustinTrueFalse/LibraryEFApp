@@ -1,5 +1,4 @@
-﻿
-using LibraryEFApp.DAL.Repositories;
+﻿using LibraryEFApp.DAL.Repositories;
 using LibraryEFApp.PLL.Helpers;
 using System;
 using System.Collections.Generic;
@@ -7,27 +6,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryEFApp.PLL.Views.BookView
+namespace LibraryEFApp.PLL.Views.AuthorView
 {
-    public class BookInfoView
+    public class AuthorInfoView
     {
-        private IBookRepository bookRepository;
-        public BookInfoView(IBookRepository bookRepository)
+        private IAuthorRepository authorRepository;
+        public AuthorInfoView(IAuthorRepository authorRepository)
         {
-            this.bookRepository = bookRepository;
+            this.authorRepository = authorRepository;
         }
         public void Show()
         {
             Console.WriteLine("Введите Id для поиска");
 
-            int bookToFind = int.Parse(Console.ReadLine());
+            int authorToFind = int.Parse(Console.ReadLine());
 
-            var book = bookRepository.FindById(bookToFind);
+            var author = authorRepository.FindById(authorToFind);
 
             try
             {
                 
-                SuccessMessage.Show("Книга найдена!.");
+                SuccessMessage.Show("Автор найдеа!.");
             }
 
             catch (ArgumentNullException)
@@ -43,9 +42,9 @@ namespace LibraryEFApp.PLL.Views.BookView
             
 
             Console.WriteLine("Информация о книге");
-            Console.WriteLine("Идентификатор: {0}", book.Id);
-            Console.WriteLine("Имя: {0}", book.Name);
-            Console.WriteLine("Год выпуска: {0}", book.YearOfRelease);
+            Console.WriteLine("Идентификатор: {0}", author.Id);
+            Console.WriteLine("Имя: {0}", author.FirstName);
+            Console.WriteLine("Год выпуска: {0}", author.LastName);
 
         }
     }

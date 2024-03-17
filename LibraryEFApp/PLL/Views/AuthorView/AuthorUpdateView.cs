@@ -1,5 +1,4 @@
-﻿
-using LibraryEFApp.DAL.Repositories;
+﻿using LibraryEFApp.DAL.Repositories;
 using LibraryEFApp.PLL.Helpers;
 using System;
 using System.Collections.Generic;
@@ -7,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryEFApp.PLL.Views.BookView
+namespace LibraryEFApp.PLL.Views.AuthorView
 {
-    public class BookUpdateView
+    public class AuthorUpdateView
     {
-        private IBookRepository bookRepository;
-        public BookUpdateView(IBookRepository bookRepository)
+        private IAuthorRepository authorRepository;
+        public AuthorUpdateView(IAuthorRepository authorRepository)
         {
-            this.bookRepository = bookRepository;
+            this.authorRepository = authorRepository;
         }
 
         public void Show()
@@ -24,11 +23,14 @@ namespace LibraryEFApp.PLL.Views.BookView
             int id = int.Parse(Console.ReadLine());
 
             Console.Write("Введите обновленный год выпуска:");
-            int yearOfRelease = int.Parse(Console.ReadLine());
+            string firstname = Console.ReadLine();
+
+            Console.Write("Введите обновленный год выпуска:");
+            string lastname = Console.ReadLine();
 
             try
             {
-                bookRepository.UpdateById(id, yearOfRelease);
+                authorRepository.UpdateById(id, firstname, lastname);
 
                 SuccessMessage.Show("Данные обновлены.");
             }

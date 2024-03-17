@@ -12,10 +12,10 @@ namespace LibraryEFApp.DAL.Entities
         // Объекты таблицы
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<BookEntity> Books { get; set; }
+        public DbSet<AuthorEntity> Authors { get; set; }
 
         public AppContextEF()
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
             
         }

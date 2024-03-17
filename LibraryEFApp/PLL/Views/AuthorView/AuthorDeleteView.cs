@@ -6,29 +6,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryEFApp.PLL.Views.BookView
+namespace LibraryEFApp.PLL.Views.AuthorView
 {
-    public class BookDeleteView
+    public class AuthorDeleteView
     {
-        private IBookRepository bookRepository;
-        public BookDeleteView(IBookRepository bookRepository)
+        private IAuthorRepository authorRepository;
+        public AuthorDeleteView(IAuthorRepository authorRepository)
         {
-            this.bookRepository = bookRepository;
+            this.authorRepository = authorRepository;
         }
 
 
         public void Show()
         {
 
-            Console.WriteLine("Введите название:");
-            string name = Console.ReadLine();
+            Console.WriteLine("Введите имя автора:");
+            string firstname = Console.ReadLine();
 
-            Console.Write("Введите год выпуска:");
-            int yearOfRelease = int.Parse(Console.ReadLine());
+            Console.Write("Введите фамилию автора:");
+            string lastname = Console.ReadLine();
 
             try
             {
-                bookRepository.Delete(name, yearOfRelease);
+                authorRepository.Delete(firstname, lastname);
 
                 SuccessMessage.Show("Данные удалены.");
             }

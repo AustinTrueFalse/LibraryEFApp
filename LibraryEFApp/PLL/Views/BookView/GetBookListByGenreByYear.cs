@@ -1,24 +1,23 @@
-﻿using System;
+﻿using LibraryEFApp.DAL.Repositories;
+using LibraryEFApp.PLL.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using LibraryEFApp.DAL.Entities;
-using LibraryEFApp.DAL.Repositories;
-
 namespace LibraryEFApp.PLL.Views.BookView
 {
-    public class BooksListView
+    public class GetBookListByGenreByYear
     {
         private IBookRepository bookRepository;
-        public BooksListView(IBookRepository bookRepository)
+        public GetBookListByGenreByYear(IBookRepository bookRepository)
         {
             this.bookRepository = bookRepository;
         }
         public void Show()
         {
-            Console.WriteLine("Книги");
+            Console.WriteLine("Введите жанр");
 
             var books = bookRepository.FindAll();
 
@@ -33,6 +32,7 @@ namespace LibraryEFApp.PLL.Views.BookView
                 Console.WriteLine("Имя: {0}", book.Name);
                 Console.WriteLine("Email: {0}", book.YearOfRelease);
             });
+
         }
     }
 }

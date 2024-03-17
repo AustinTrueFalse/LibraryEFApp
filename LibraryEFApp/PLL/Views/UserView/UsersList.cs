@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using LibraryEFApp.BLL.Services;
 using LibraryEFApp.DAL.Entities;
+using LibraryEFApp.DAL.Repositories;
 
 namespace LibraryEFApp.PLL.Views.UserView
 {
     public class UsersListView
     {
-        UserService userService;
-        public UsersListView(UserService userService)
+        private IUserRepository userRepository;
+        public UsersListView(IUserRepository userRepository)
         {
-            this.userService = userService;
+            this.userRepository = userRepository;
         }
         public void Show()
         {
             Console.WriteLine("Пользователи");
 
-            var users = userService.FindAll();
+            var users = userRepository.FindAll();
 
             if (users.Count() == 0)
             {

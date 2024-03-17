@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +17,7 @@ namespace LibraryEFApp.PLL.Views.UserView
                 Console.WriteLine("Найти пользователя по Id (нажмите 3)");
                 Console.WriteLine("Удалить пользователя (нажмите 4)");
                 Console.WriteLine("Обновить имя пользователя по Id (нажмите 5)");
+                Console.WriteLine("Получить книгу из библиотеки (нажмите 6)");
 
                 Console.WriteLine("Выйти из программы (нажмите 8)");
 
@@ -50,6 +50,11 @@ namespace LibraryEFApp.PLL.Views.UserView
                     case "5":
                         {
                             Program.userUpdateView.Show();
+                            break;
+                        }
+                    case "6":
+                        {
+                            Program.getBookUserView.Show();
                             break;
                         }
                 }
