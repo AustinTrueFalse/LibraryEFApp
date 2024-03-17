@@ -24,31 +24,27 @@ namespace LibraryEFApp.PLL.Views.BookView
             Console.WriteLine("Введите год издания");
             var year = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Введите Id автора книги");
-            var authorId = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Введите жанр книги через запятую");
+            Console.WriteLine("Введите жанр книги");
 
             var genre = Console.ReadLine();
 
-
-            var book = new BookEntity { Name = name, YearOfRelease = year, Users = new List<UserEntity>(), AuthorId = authorId, Genre = genre };
+            var book = new BookEntity { Name = name, YearOfRelease = year, Users = new List<UserEntity>(), Authors = new List<AuthorEntity>(), Genre = genre };
 
             try
             {
                 this.bookRepository.AddBook(book);
 
-                SuccessMessage.Show("Данные записаны.");
+                SuccessMessage.Show("Данные записаны");
             }
 
             catch (ArgumentNullException)
             {
-                AlertMessage.Show("Введите корректное значение.");
+                AlertMessage.Show("Введите корректное значение");
             }
 
             catch (Exception)
             {
-                AlertMessage.Show("Произошла ошибка добавления.");
+                AlertMessage.Show("Произошла ошибка добавления");
             }
         }
  

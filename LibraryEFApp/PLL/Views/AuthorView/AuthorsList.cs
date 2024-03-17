@@ -29,8 +29,7 @@ namespace LibraryEFApp.PLL.Views.AuthorView
 
             authors.ToList().ForEach(author =>
             {
-                Console.WriteLine("Имя: {0}", author.FirstName);
-                Console.WriteLine("Email: {0}", author.LastName);
+                Console.WriteLine("Имя: {0} Фамилия: {1}", author.FirstName, author.LastName);
             });
         }
     }

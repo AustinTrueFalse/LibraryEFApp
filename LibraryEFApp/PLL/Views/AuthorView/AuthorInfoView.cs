@@ -1,4 +1,5 @@
-﻿using LibraryEFApp.DAL.Repositories;
+﻿using LibraryEFApp.BLL.Exceptions;
+using LibraryEFApp.DAL.Repositories;
 using LibraryEFApp.PLL.Helpers;
 using System;
 using System.Collections.Generic;
@@ -21,30 +22,37 @@ namespace LibraryEFApp.PLL.Views.AuthorView
 
             int authorToFind = int.Parse(Console.ReadLine());
 
-            var author = authorRepository.FindById(authorToFind);
+
 
             try
             {
-                
-                SuccessMessage.Show("Автор найдеа!.");
+                var author = authorRepository.FindById(authorToFind);
+
+                SuccessMessage.Show("Автор найден!");
+                Console.WriteLine();
+                Console.WriteLine("Информация об авторе");
+                Console.WriteLine("Идентификатор: {0}", author.Id);
+                Console.WriteLine("Имя: {0}", author.FirstName);
+                Console.WriteLine("Фамилия: {0}", author.LastName);
+
             }
 
             catch (ArgumentNullException)
             {
-                AlertMessage.Show("Введите корректное значение.");
+                AlertMessage.Show("Введите корректное значение");
             }
-
+            catch (UserNotFoundException)
+            {
+                AlertMessage.Show("Автор не найден");
+            }
             catch (Exception)
             {
-                AlertMessage.Show("Произошла ошибка поиска.");
+                AlertMessage.Show("Произошла ошибка поиска");
             }
 
             
 
-            Console.WriteLine("Информация о книге");
-            Console.WriteLine("Идентификатор: {0}", author.Id);
-            Console.WriteLine("Имя: {0}", author.FirstName);
-            Console.WriteLine("Год выпуска: {0}", author.LastName);
+            
 
         }
     }

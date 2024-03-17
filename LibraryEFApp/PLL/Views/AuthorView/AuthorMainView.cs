@@ -12,11 +12,13 @@ namespace LibraryEFApp.PLL.Views.AuthorView
         {
             while (true)
             {
+                Console.WriteLine();
                 Console.WriteLine("Добавить автора (нажмите 1)");
                 Console.WriteLine("Вывести список всех авторов (нажмите 2)");
                 Console.WriteLine("Найти автора по Id (нажмите 3)");
                 Console.WriteLine("Удалить автора (нажмите 4)");
                 Console.WriteLine("Обновить данные автора (нажмите 5)");
+                Console.WriteLine("Присвоить автору книгу (нажмите 6)");
 
                 Console.WriteLine("Выйти из программы (нажмите 8)");
 
@@ -49,6 +51,11 @@ namespace LibraryEFApp.PLL.Views.AuthorView
                     case "5":
                         {
                             Program.authorUpdateView.Show();
+                            break;
+                        }
+                    case "6":
+                        {
+                            Program.joinBookToAuthorView.Show();
                             break;
                         }
                 }

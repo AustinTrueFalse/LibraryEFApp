@@ -29,8 +29,7 @@ namespace LibraryEFApp.PLL.Views.UserView
 
             users.ToList().ForEach(user =>
             {
-                Console.WriteLine("Имя: {0}", user.Name);
-                Console.WriteLine("Email: {0}", user.Email);
+                Console.WriteLine("Имя: {0} Email: {1}", user.Name, user.Email);
             });
         }
     }

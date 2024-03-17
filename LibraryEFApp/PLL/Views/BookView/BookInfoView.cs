@@ -1,4 +1,5 @@
 ﻿
+using LibraryEFApp.BLL.Exceptions;
 using LibraryEFApp.DAL.Repositories;
 using LibraryEFApp.PLL.Helpers;
 using System;
@@ -22,30 +23,39 @@ namespace LibraryEFApp.PLL.Views.BookView
 
             int bookToFind = int.Parse(Console.ReadLine());
 
-            var book = bookRepository.FindById(bookToFind);
+
 
             try
             {
+                var book = bookRepository.FindById(bookToFind);
+
+                SuccessMessage.Show("Книга найдена!");
+                Console.WriteLine();
+                Console.WriteLine("Информация о книге");
+                Console.WriteLine("Идентификатор: {0}", book.Id);
+                Console.WriteLine("Имя: {0}", book.Name);
+                Console.WriteLine("Год выпуска: {0}", book.YearOfRelease);
+
                 
-                SuccessMessage.Show("Книга найдена!.");
             }
 
             catch (ArgumentNullException)
             {
-                AlertMessage.Show("Введите корректное значение.");
+                AlertMessage.Show("Введите корректное значение");
+            }
+            catch (BookNotFoundException)
+            {
+                AlertMessage.Show("Книга не найдена");
             }
 
             catch (Exception)
             {
-                AlertMessage.Show("Произошла ошибка поиска.");
+                AlertMessage.Show("Произошла ошибка поиска");
             }
 
             
 
-            Console.WriteLine("Информация о книге");
-            Console.WriteLine("Идентификатор: {0}", book.Id);
-            Console.WriteLine("Имя: {0}", book.Name);
-            Console.WriteLine("Год выпуска: {0}", book.YearOfRelease);
+            
 
         }
     }

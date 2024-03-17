@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryEFApp.BLL.Exceptions
+namespace LibraryEFApp.DAL.Entities
 {
-    public class UserNotFoundException : Exception
+    public enum SortType
     {
-        
+        asc,
+        desc
     }
 }

@@ -80,7 +80,31 @@ namespace LibraryEFApp.DAL.Repositories
             }
 
         }
+        public void JoinBookToAuthor(int authorId, int bookId)
+        {
+            using (var db = new AppContextEF())
+            {
+
+                BookEntity book = db.Books.FirstOrDefault(b => b.Id == bookId);
+                if (book == null)
+                    throw new BookNotFoundException();
+
+
+                AuthorEntity author = db.Authors.FirstOrDefault(u => u.Id == authorId);
+
+                if (author == null)
+                    throw new UserNotFoundException();
+
+
+                author.Books.Add(book);
+                db.SaveChanges();
+
+
+            }
+        }
         
+
+
     }
 
     public interface IAuthorRepository
@@ -90,6 +114,7 @@ namespace LibraryEFApp.DAL.Repositories
         AuthorEntity FindById(int id);
         void Delete(string name, string lastname);
         void UpdateById(int id, string name, string lastname);
+        void JoinBookToAuthor(int authorId, int bookId);
 
 
     }

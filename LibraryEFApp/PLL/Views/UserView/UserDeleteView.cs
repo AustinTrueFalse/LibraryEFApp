@@ -29,12 +29,12 @@ namespace LibraryEFApp.PLL.Views.UserView
             {
                 userRepository.Delete(name, email);
 
-                SuccessMessage.Show("Данные удалены.");
+                SuccessMessage.Show("Данные удалены");
             }
 
             catch (ArgumentNullException)
             {
-                AlertMessage.Show("Введите корректное значение.");
+                AlertMessage.Show("Введите корректное значение");
             }
 
             catch (Exception)

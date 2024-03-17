@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LibraryEFApp.DAL.Repositories
 {
@@ -111,8 +112,18 @@ namespace LibraryEFApp.DAL.Repositories
             }
 
         }
+        public int GetUserCountBooks(UserEntity userEntity)
+        {
+            using (var db = new AppContextEF())
+            {
 
-        
+                int count = db.Books.Where(b => b.Users.Contains(userEntity)).ToList().Count();
+                return count;
+            }
+
+        }
+
+
     }
 
     public interface IUserRepository
@@ -122,8 +133,8 @@ namespace LibraryEFApp.DAL.Repositories
         UserEntity FindById(int id);
         void Delete(string name, string email);
         void UpdateById(int id, string value);
-
         public void GetBookFromLibrary(int userId, int bookId);
+        int GetUserCountBooks(UserEntity userEntity);
 
-    }
+    };
 }

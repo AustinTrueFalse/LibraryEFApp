@@ -1,10 +1,10 @@
 ﻿using LibraryEFApp.BLL.Exceptions;
 using LibraryEFApp.DAL.Entities;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Linq;
+
 
 namespace LibraryEFApp.DAL.Repositories
 {
@@ -22,14 +22,31 @@ namespace LibraryEFApp.DAL.Repositories
             }
 
         }
-        public List<BookEntity> FindAll()
+        public List<BookEntity> FindAll(BookSortParams bookSortParams = BookSortParams.none, SortType sortType = SortType.asc)
         {
 
             List<BookEntity> allBooks;
             using (var db = new AppContextEF())
             {
 
-                allBooks = db.Books.ToList();
+                switch (bookSortParams)
+                {
+                    case BookSortParams.bookName:
+                        if (sortType == SortType.asc)
+                            allBooks = db.Books.OrderBy(b => b.Name).ToList();
+                        else
+                            allBooks = db.Books.OrderByDescending(b => b.Name).ToList();
+                        break;
+                    case BookSortParams.bookYear:
+                        if (sortType == SortType.asc)
+                            allBooks = db.Books.OrderBy(b => b.YearOfRelease).ToList();
+                        else
+                            allBooks = db.Books.OrderByDescending(b => b.YearOfRelease).ToList();
+                        break;
+                    default:
+                        allBooks = db.Books.ToList();
+                        break;
+                }
 
             }
             return allBooks;
@@ -40,7 +57,9 @@ namespace LibraryEFApp.DAL.Repositories
             using (var db = new AppContextEF())
             {
 
-                var book = db.Books.FirstOrDefault(u => u.Id == id);
+                var book = db.Books.Where(b => b.Id == id).FirstOrDefault();
+               
+
                 if (book == null)
                 {
                     throw new BookNotFoundException();
@@ -55,7 +74,8 @@ namespace LibraryEFApp.DAL.Repositories
         {
             using (var db = new AppContextEF())
             {
-                var book = db.Books.FirstOrDefault(u => u.Name == name && u.YearOfRelease == yearOfRelease);
+               
+                var book = db.Books.Where(b => b.Name == name && b.YearOfRelease == yearOfRelease).ToList().FirstOrDefault();
 
                 if (book == null)
                 {
@@ -79,15 +99,87 @@ namespace LibraryEFApp.DAL.Repositories
             }
 
         }
+
+        public List<BookEntity> FindByGenreYear(string genre, int yearfrom, int yearto)
+        {
+            using (var db = new AppContextEF())
+            {
+
+                    return db.Books.Where(b => b.Genre == genre && b.YearOfRelease >= yearfrom && b.YearOfRelease <= yearto).ToList();           
+               
+            }
+
+        }
+
+        public int GetCountBooksByGenre(string genre)
+        {
+            using (var db = new AppContextEF())
+            {
+
+                return db.Books.Where(b => b.Genre == genre).ToList().Count();
+
+            }
+
+        }
+        public int GetCountBooksByAuthor(AuthorEntity author)
+        {
+            using (var db = new AppContextEF())
+            {
+
+                return db.Books.Where(b => b.Authors.Contains(author)).ToList().Count();
+
+            }
+
+        }
+        public bool GetFlagHasBooksByAuthorByName(AuthorEntity author, string name)
+        {
+            using (var db = new AppContextEF())
+            {
+                int count = db.Books.Where(b => b.Authors.Contains(author) && b.Name == name).ToList().Count();
+                return count > 0;
+
+            }
+
+        }
+        public bool GetFlagHasBooksByUserByName(UserEntity user, string name)
+        {
+            using (var db = new AppContextEF())
+            {
+                int count = db.Books.Where(b => b.Users.Contains(user) && b.Name == name).ToList().Count();
+                return count > 0;
+
+            }
+
+        }
+
+        public BookEntity GetNewestBook()
+        {
+            using (var db = new AppContextEF())
+            {
+
+                return db.Books.OrderByDescending(b => b.YearOfRelease).FirstOrDefault();
+
+            }
+
+        }
+
+
+
     }
 
     public interface IBookRepository
     {
         void AddBook(BookEntity bookEntity);
-        public List<BookEntity> FindAll();
+        List<BookEntity> FindAll(BookSortParams bookSortParams = BookSortParams.none, SortType sortType = SortType.asc);
         BookEntity FindById(int id);
         void Delete(string name, int yearOfRelease);
         void UpdateById(int id, int yearOfRelease);
+        List<BookEntity> FindByGenreYear(string genre, int yearfrom, int yearto);
+        int GetCountBooksByGenre(string genre);
+        int GetCountBooksByAuthor(AuthorEntity author);
+        bool GetFlagHasBooksByAuthorByName(AuthorEntity author, string name);
+        bool GetFlagHasBooksByUserByName(UserEntity user, string name);
+        BookEntity GetNewestBook();
 
     }
 }

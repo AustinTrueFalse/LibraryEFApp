@@ -30,12 +30,12 @@ namespace LibraryEFApp.PLL.Views.AuthorView
             {
                 authorRepository.Delete(firstname, lastname);
 
-                SuccessMessage.Show("Данные удалены.");
+                SuccessMessage.Show("Данные удалены");
             }
 
             catch (ArgumentNullException)
             {
-                AlertMessage.Show("Введите корректное значение.");
+                AlertMessage.Show("Введите корректное значение");
             }
 
             catch (Exception)

@@ -30,8 +30,7 @@ namespace LibraryEFApp.PLL.Views.BookView
 
             books.ToList().ForEach(book =>
             {
-                Console.WriteLine("Имя: {0}", book.Name);
-                Console.WriteLine("Email: {0}", book.YearOfRelease);
+                Console.WriteLine("Название: {0} Год релиза: {1}", book.Name, book.YearOfRelease);
             });
         }
     }

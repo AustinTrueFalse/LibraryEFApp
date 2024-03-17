@@ -1,5 +1,5 @@
-﻿using LibraryEFApp.DAL.Repositories;
-using LibraryEFApp.PLL.Helpers;
+﻿using LibraryEFApp.DAL.Entities;
+using LibraryEFApp.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,26 +8,18 @@ using System.Threading.Tasks;
 
 namespace LibraryEFApp.PLL.Views.BookView
 {
-    public class GetBookListByGenreByYear
+    public class BooksListOrderByName
     {
         private IBookRepository bookRepository;
-        public GetBookListByGenreByYear(IBookRepository bookRepository)
+        public BooksListOrderByName(IBookRepository bookRepository)
         {
             this.bookRepository = bookRepository;
         }
         public void Show()
         {
-            Console.WriteLine("Введите жанр");
-            string genre = Console.ReadLine();
+            Console.WriteLine("Книги");
 
-            Console.WriteLine("Год начала поиска");
-            int yearfrom = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Год конца поиска");
-            int yearto = int.Parse(Console.ReadLine());
-
-
-            var books = bookRepository.FindByGenreYear(genre, yearfrom, yearto);
+            var books = bookRepository.FindAll(bookSortParams: BookSortParams.bookName, sortType: SortType.asc);
 
             if (books.Count() == 0)
             {
@@ -38,9 +30,7 @@ namespace LibraryEFApp.PLL.Views.BookView
             books.ToList().ForEach(book =>
             {
                 Console.WriteLine("Название: {0} Год выпуска: {1}", book.Name, book.YearOfRelease);
-               
             });
-
         }
     }
 }

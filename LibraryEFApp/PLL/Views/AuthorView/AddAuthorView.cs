@@ -34,12 +34,12 @@ namespace LibraryEFApp.PLL.Views.AuthorView
             {
                 this.authorRepository.AddAuthor(author);
 
-                SuccessMessage.Show("Данные записаны.");
+                SuccessMessage.Show("Данные записаны");
             }
 
             catch (ArgumentNullException)
             {
-                AlertMessage.Show("Введите корректное значение.");
+                AlertMessage.Show("Введите корректное значение");
             }
 
             catch (Exception)

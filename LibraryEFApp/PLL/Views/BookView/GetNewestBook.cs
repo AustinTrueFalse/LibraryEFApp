@@ -8,29 +8,28 @@ using System.Threading.Tasks;
 
 namespace LibraryEFApp.PLL.Views.BookView
 {
-    public class BookDeleteView
+    public class GetNewestBook
     {
         private IBookRepository bookRepository;
-        public BookDeleteView(IBookRepository bookRepository)
+        public GetNewestBook(IBookRepository bookRepository)
         {
             this.bookRepository = bookRepository;
         }
-
-
         public void Show()
         {
 
-            Console.WriteLine("Введите название:");
-            string name = Console.ReadLine();
 
-            Console.Write("Введите год выпуска:");
-            int yearOfRelease = int.Parse(Console.ReadLine());
 
             try
             {
-                bookRepository.Delete(name, yearOfRelease);
+                var book = bookRepository.GetNewestBook();
 
-                SuccessMessage.Show("Данные удалены");
+                SuccessMessage.Show("Книга найдена!");
+
+                Console.WriteLine("Информация о книге");
+                Console.WriteLine("Идентификатор: {0}", book.Id);
+                Console.WriteLine("Имя: {0}", book.Name);
+                Console.WriteLine("Год выпуска: {0}", book.YearOfRelease);
             }
 
             catch (ArgumentNullException)
@@ -40,9 +39,11 @@ namespace LibraryEFApp.PLL.Views.BookView
 
             catch (Exception)
             {
-                AlertMessage.Show("Книга не найдена");
+                AlertMessage.Show("Произошла ошибка поиска");
             }
-        }
 
+            
+
+        }
     }
 }

@@ -30,17 +30,17 @@ namespace LibraryEFApp.PLL.Views.BookView
             {
                 bookRepository.UpdateById(id, yearOfRelease);
 
-                SuccessMessage.Show("Данные обновлены.");
+                SuccessMessage.Show("Данные обновлены");
             }
 
             catch (ArgumentNullException)
             {
-                AlertMessage.Show("Введите корректное значение.");
+                AlertMessage.Show("Введите корректное значение");
             }
 
             catch (Exception)
             {
-                AlertMessage.Show("Произошла ошибка удаления.");
+                AlertMessage.Show("Произошла ошибка удаления");
             }
         }
 

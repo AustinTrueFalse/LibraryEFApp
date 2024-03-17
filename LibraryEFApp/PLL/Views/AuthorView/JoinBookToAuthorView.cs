@@ -7,21 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryEFApp.PLL.Views.UserView
+namespace LibraryEFApp.PLL.Views.AuthorView
 {
-    public class GetBookUserView
+    public class JoinBookToAuthorView
     {
-        private IUserRepository userRepository;
-
-        public GetBookUserView(IUserRepository userRepository)
+        private IAuthorRepository authorRepository;
+        public JoinBookToAuthorView(IAuthorRepository authorRepository)
         {
-            this.userRepository = userRepository;
+            this.authorRepository = authorRepository;
         }
+
         public void Show()
         {
             try
             {
-                Console.WriteLine("Введите Id пользователя");
+                Console.WriteLine("Введите Id автора");
 
                 var userId = int.Parse(Console.ReadLine());
 
@@ -29,13 +29,13 @@ namespace LibraryEFApp.PLL.Views.UserView
 
                 var bookId = int.Parse(Console.ReadLine());
 
-                userRepository.GetBookFromLibrary(userId, bookId);
+                authorRepository.JoinBookToAuthor(userId, bookId);
 
                 SuccessMessage.Show("Данные записаны");
             }
             catch (UserNotFoundException)
             {
-                Console.WriteLine("Ошибка! Пользователь с таким id отсутствует в базе");
+                Console.WriteLine("Ошибка! Автор с таким id отсутствует в базе");
             }
             catch (BookNotFoundException)
             {
@@ -46,5 +46,7 @@ namespace LibraryEFApp.PLL.Views.UserView
                 Console.WriteLine(ex.Message);
             }
         }
+
     }
 }
+

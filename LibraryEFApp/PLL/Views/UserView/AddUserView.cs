@@ -31,17 +31,17 @@ namespace LibraryEFApp.PLL.Views.UserView
             {
                 this.userRepository.AddUser(user);
 
-                SuccessMessage.Show("Данные записаны.");
+                SuccessMessage.Show("Данные записаны");
             }
 
             catch (ArgumentNullException)
             {
-                AlertMessage.Show("Введите корректное значение.");
+                AlertMessage.Show("Введите корректное значение");
             }
 
             catch (Exception)
             {
-                AlertMessage.Show("Произошла ошибка добавления.");
+                AlertMessage.Show("Произошла ошибка добавления");
             }
         }
  
